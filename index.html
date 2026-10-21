@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cazadores de Cimas | Cálculo Diferencial</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- BARRA SUPERIOR (HUD) -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo-block">⛏️</div>
+      <div>
+        <h1>CAZADORES DE CIMAS</h1>
+        <span class="subtitle">Cálculo Diferencial • Máximos y Mínimos</span>
+      </div>
+    </div>
+
+    <div class="hud-stats">
+      <div class="stat-pill" title="Esmeraldas ganadas">
+        <span>💎</span> <strong id="ui-emeralds">150</strong>
+      </div>
+      <div class="stat-pill" title="Puntos de experiencia">
+        <span>⭐ XP:</span> <strong id="ui-xp">0</strong>
+      </div>
+      <div class="stat-pill" title="Racha de respuestas correctas">
+        <span>🔥 Racha:</span> <strong id="ui-streak">0</strong>
+      </div>
+      <div class="stat-pill biome-pill" title="Cambia cada 5 minutos automáticamente">
+        <span>🌍 <b id="ui-biome-name">Pradera</b></span>
+        <small id="ui-biome-timer">05:00</small>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <button id="btn-change-biome" class="mc-btn mc-btn-blue" title="Cambiar bioma ahora">🌤️ Bioma</button>
+      <button id="btn-boss-10" class="mc-btn mc-btn-orange">⚔️ Jefe N10</button>
+      <button id="btn-boss-20" class="mc-btn mc-btn-purple">🐉 Jefe N20</button>
+      <button id="btn-open-theory" class="mc-btn mc-btn-green">📘 Guía</button>
+      <button id="btn-open-shop" class="mc-btn mc-btn-gold">🛒 Tienda</button>
+      <button id="btn-sound" class="mc-btn">🔊</button>
+    </div>
+  </header>
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <main class="main-grid">
+    <!-- COLUMNA IZQUIERDA: MUNDO 2D MINECRAFT Y TELEMETRÍA -->
+    <section class="world-column">
+      <!-- Barra de nivel -->
+      <div class="level-bar">
+        <div class="level-selector-wrap">
+          <label for="level-select">🗺️ Nivel:</label>
+          <select id="level-select" class="mc-select"></select>
+          <span id="boss-badge" class="boss-badge hidden">¡JEFE DE NIVEL!</span>
+        </div>
+        <div class="equation-banner">
+          <span>Montaña:</span>
+          <strong id="ui-equation">f(x) = -x² + 4x + 1</strong>
+        </div>
+      </div>
+
+      <!-- Lienzo 2D estilo Minecraft -->
+      <div class="canvas-wrapper">
+        <canvas id="game-canvas" width="820" height="420"></canvas>
+
+        <!-- Telemetría flotante arriba a la izquierda -->
+        <div class="telemetry-overlay">
+          <div>Posición X: <strong id="tel-x">0.00</strong></div>
+          <div>Altura f(x): <strong id="tel-y">0.00</strong></div>
+          <div>Pendiente f'(x): <strong id="tel-dy">0.00</strong></div>
+          <div id="tel-concavity" class="hidden">Concavidad f''(x): <strong id="tel-d2y">0.00</strong></div>
+          <div id="tel-state" class="slope-tag">Subiendo ↗</div>
+        </div>
+      </div>
+
+      <!-- Controles del Alpinista Steve -->
+      <div class="controls-bar">
+        <button id="btn-step-left" class="mc-btn">◀ X - 0.5</button>
+        <div class="slider-wrap">
+          <span>Mover a Steve (Teclas A / D o deslizador):</span>
+          <input type="range" id="x-slider" min="-6" max="6" step="0.1" value="0">
+        </div>
+        <button id="btn-step-right" class="mc-btn">X + 0.5 ▶</button>
+        <button id="btn-plant-flag" class="mc-btn mc-btn-gold">🚩 Plantar Bandera</button>
+      </div>
+
+      <!-- Pizarrón de Explicación de Cálculo Diferencial -->
+      <div class="professor-board">
+        <div class="board-header">
+          <span>🎓 Pizarrón de Cálculo Diferencial — Explicación Paso a Paso</span>
+          <span id="ui-progress-count">Niveles superados: 0 / 20</span>
+        </div>
+        <div id="professor-text" class="board-content">
+          Cargando explicación matemática...
+        </div>
+      </div>
+    </section>
+
+    <!-- COLUMNA DERECHA: MISIONES Y PREGUNTAS CON INCISOS ALEATORIOS -->
+    <aside class="mission-column">
+      <div class="mission-card">
+        <div class="mission-header">
+          <span id="mission-step-badge" class="step-badge">FASE 1 DE 3</span>
+          <h2 id="mission-title">1. Primera Derivada f'(x)</h2>
+        </div>
+
+        <p id="mission-desc" class="mission-desc">
+          Para encontrar los puntos más altos (máximos) y más bajos (mínimos), el primer paso es derivar la función f(x).
+        </p>
+
+        <div class="question-box">
+          <h3 id="question-prompt">¿Cuál es la primera derivada f'(x)?</h3>
+          <div id="options-container" class="options-list">
+            <!-- Los botones A, B, C, D se generan y barajan en game.js -->
+          </div>
+        </div>
+
+        <!-- Retroalimentación detallada -->
+        <div id="feedback-box" class="feedback-box hidden"></div>
+
+        <!-- Acciones adicionales -->
+        <div class="helper-actions">
+          <button id="btn-use-hint" class="mc-btn mc-btn-blue">💡 Pista del Profesor (-25 💎)</button>
+          <button id="btn-next-level" class="mc-btn mc-btn-green hidden">Siguiente Nivel ⏭️</button>
+        </div>
+      </div>
+
+      <!-- Tarjeta de Resumen de Criterios -->
+      <div class="cheat-card">
+        <h3>⚡ Resumen Rápido de Derivadas</h3>
+        <ul>
+          <li><strong>Regla de la potencia:</strong> Si <code>f(x) = axⁿ</code>, entonces <code>f'(x) = n·a·xⁿ⁻¹</code>.</li>
+          <li><strong>Punto Crítico:</strong> Ocurre cuando la pendiente es horizontal, es decir, <code>f'(x) = 0</code>.</li>
+          <li><strong>Cima (Máximo Local):</strong> La segunda derivada es negativa (<code>f''(x) &lt; 0</code>, cóncava hacia abajo ∩).</li>
+          <li><strong>Valle (Mínimo Local):</strong> La segunda derivada es positiva (<code>f''(x) &gt; 0</code>, cóncava hacia arriba ∪).</li>
+        </ul>
+      </div>
+    </aside>
+  </main>
+
+  <!-- MODAL: GUÍA TEÓRICA DE CÁLCULO DIFERENCIAL -->
+  <div id="modal-theory" class="modal-backdrop hidden">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h2>📘 Manual de Cálculo Diferencial: Máximos y Mínimos</h2>
+        <button id="btn-close-theory" class="mc-btn mc-btn-red">✖</button>
+      </div>
+      <div class="modal-body">
+        <h4>Paso 1: Obtener la Primera Derivada f'(x)</h4>
+        <p>La derivada representa la <strong>pendiente de la recta tangente</strong> a la montaña en cualquier coordenada <code>x</code>. Si <code>f'(x) &gt; 0</code> subes; si <code>f'(x) &lt; 0</code> bajas.</p>
+        <h4>Paso 2: Igualar a Cero f'(x) = 0 (Puntos Críticos)</h4>
+        <p>En la punta exacta de una cima o en el fondo de un valle, la recta tangente es completamente horizontal (pendiente 0). Al resolver <code>f'(x) = 0</code> encontramos las coordenadas <code>x</code> donde están las cimas y los valles.</p>
+        <h4>Paso 3: Criterio de la Segunda Derivada f''(x)</h4>
+        <p>Volvemos a derivar para obtener <code>f''(x)</code> y sustituimos cada punto crítico:</p>
+        <ul>
+          <li>Si <code>f''(x) &lt; 0</code>: Tenemos un <strong>MÁXIMO LOCAL (Cima 🏔️)</strong>.</li>
+          <li>Si <code>f''(x) &gt; 0</code>: Tenemos un <strong>MÍNIMO LOCAL (Valle 🕳️)</strong>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: TIENDA DE MEJORAS MINECRAFT -->
+  <div id="modal-shop" class="modal-backdrop hidden">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h2>🛒 Mesa de Herramientas y Mejoras</h2>
+        <button id="btn-close-shop" class="mc-btn mc-btn-red">✖</button>
+      </div>
+      <div class="modal-body" id="shop-items-container"></div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS MODULARES -->
+  <script src="levels.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
