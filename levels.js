@@ -1,67 +1,140 @@
 /* ============================================================================
-   MODULE SCRIPT: BIOMAS DE MINECRAFT Y 20 NIVELES DE CÁLCULO DIFERENCIAL
+   MODULE SCRIPT: LOS 7 BIOMAS DETALLADOS Y 20 NIVELES DE CÁLCULO DIFERENCIAL
    ============================================================================ */
 
 const BIOMES = [
   {
     id: "overworld",
-    name: "Pradera Overworld (Día)",
+    name: "Overworld (Bosque Real)",
     isLight: true,
-    skyTop: "#62b6ff",
-    skyBottom: "#bae6fd",
-    topBlock: "#4ade80",
+    skyTop: "#2563eb",
+    skyMid: "#60a5fa",
+    skyBottom: "#dbeafe",
+    fogColor: "rgba(191, 219, 254, 0.35)",
+    farMtn: "#3b82f6",
+    midMtn: "#1d4ed8",
+    topBlock: "#22c55e",
+    topLip: "#16a34a",
     midBlock: "#854d0e",
     deepBlock: "#475569",
+    abyssBlock: "#1e293b",
     oreColor: "#38bdf8",
-    sunColor: "#fde047"
+    sunColor: "#fde047",
+    weatherType: "pollen"
   },
   {
-    id: "cherry",
-    name: "Bosque de Cerezos (Claro)",
+    id: "llanuras",
+    name: "Llanuras (Pradera Dorada)",
     isLight: true,
-    skyTop: "#f9a8d4",
+    skyTop: "#0284c7",
+    skyMid: "#7dd3fc",
+    skyBottom: "#fef9c3",
+    fogColor: "rgba(254, 240, 138, 0.3)",
+    farMtn: "#64748b",
+    midMtn: "#475569",
+    topBlock: "#84cc16",
+    topLip: "#65a30d",
+    midBlock: "#92400e",
+    deepBlock: "#57534e",
+    abyssBlock: "#292524",
+    oreColor: "#facc15",
+    sunColor: "#fef08a",
+    weatherType: "pollen"
+  },
+  {
+    id: "jungla",
+    name: "Jungla Tropical",
+    isLight: false,
+    skyTop: "#064e3b",
+    skyMid: "#047857",
+    skyBottom: "#a7f3d0",
+    fogColor: "rgba(16, 185, 129, 0.28)",
+    farMtn: "#065f46",
+    midMtn: "#022c22",
+    topBlock: "#10b981",
+    topLip: "#059669",
+    midBlock: "#713f12",
+    deepBlock: "#3f6212",
+    abyssBlock: "#14532d",
+    oreColor: "#4ade80",
+    sunColor: "#fde047",
+    weatherType: "fireflies"
+  },
+  {
+    id: "cerezal",
+    name: "Cerezal (Cherry Grove)",
+    isLight: true,
+    skyTop: "#db2777",
+    skyMid: "#f472b6",
     skyBottom: "#fce7f3",
+    fogColor: "rgba(251, 207, 232, 0.4)",
+    farMtn: "#9d174d",
+    midMtn: "#831843",
     topBlock: "#f472b6",
+    topLip: "#db2777",
     midBlock: "#78350f",
     deepBlock: "#57534e",
-    oreColor: "#f43f5e",
-    sunColor: "#fef08a"
-  },
-  {
-    id: "taiga",
-    name: "Taiga Nevada (Atardecer)",
-    isLight: false,
-    skyTop: "#312e81",
-    skyBottom: "#fb923c",
-    topBlock: "#f8fafc",
-    midBlock: "#64748b",
-    deepBlock: "#1e293b",
-    oreColor: "#2dd4bf",
-    sunColor: "#f97316"
+    abyssBlock: "#27272a",
+    oreColor: "#fb7185",
+    sunColor: "#fff1f2",
+    weatherType: "petals"
   },
   {
     id: "nether",
-    name: "Nether Carmesí (Oscuro)",
+    name: "El Nether (Inframundo)",
     isLight: false,
-    skyTop: "#450a0a",
-    skyBottom: "#7f1d1d",
+    skyTop: "#2a0404",
+    skyMid: "#6b0f0f",
+    skyBottom: "#ea580c",
+    fogColor: "rgba(234, 88, 12, 0.28)",
+    farMtn: "#450a0a",
+    midMtn: "#270505",
     topBlock: "#dc2626",
+    topLip: "#991b1b",
     midBlock: "#7f1d1d",
-    deepBlock: "#27272a",
-    oreColor: "#facc15",
-    sunColor: "#fb923c"
+    deepBlock: "#3f1d1d",
+    abyssBlock: "#180909",
+    oreColor: "#fbbf24",
+    sunColor: "#f97316",
+    weatherType: "embers"
   },
   {
     id: "end",
-    name: "Dimensión del End (Noche)",
+    name: "El End (Vacío Cósmico)",
     isLight: false,
-    skyTop: "#090514",
-    skyBottom: "#1e1b4b",
-    topBlock: "#fde68a",
-    midBlock: "#d97706",
-    deepBlock: "#311042",
-    oreColor: "#a855f7",
-    sunColor: "#c084fc"
+    skyTop: "#05020a",
+    skyMid: "#1e1035",
+    skyBottom: "#3b0764",
+    fogColor: "rgba(147, 51, 234, 0.22)",
+    farMtn: "#2e1065",
+    midMtn: "#170736",
+    topBlock: "#fef08a",
+    topLip: "#eab308",
+    midBlock: "#ca8a04",
+    deepBlock: "#a16207",
+    abyssBlock: "#1e1b4b",
+    oreColor: "#c084fc",
+    sunColor: "#e879f9",
+    weatherType: "ender"
+  },
+  {
+    id: "the_shift",
+    name: "The Shift (Dimensión Corrupta)",
+    isLight: false,
+    skyTop: "#020617",
+    skyMid: "#0f172a",
+    skyBottom: "#083344",
+    fogColor: "rgba(6, 182, 212, 0.25)",
+    farMtn: "#0e7490",
+    midMtn: "#164e63",
+    topBlock: "#06b6d4",
+    topLip: "#0891b2",
+    midBlock: "#0f172a",
+    deepBlock: "#090d16",
+    abyssBlock: "#020409",
+    oreColor: "#f43f5e",
+    sunColor: "#22d3ee",
+    weatherType: "glitch"
   }
 ];
 
@@ -69,21 +142,21 @@ const SHOP_ITEMS = [
   {
     id: "laser",
     name: "🔦 Láser de Recta Tangente Extendida",
-    desc: "Muestra un haz láser largo sobre la pendiente f'(x) de Steve.",
+    desc: "Amplía el alcance del rayo láser f'(x) bajo los pies de Steve.",
     cost: 100,
     owned: false
   },
   {
     id: "concavity",
     name: "🔍 Escáner de Segunda Derivada f''(x)",
-    desc: "Desbloquea el lector de concavidad en vivo en el panel del lienzo.",
+    desc: "Muestra la concavidad f''(x) en tiempo real dentro del HUD.",
     cost: 150,
     owned: false
   },
   {
     id: "gold_suit",
-    name: "👑 Armadura Encantada de Diamante",
-    desc: "Equipa a Steve con armadura brillante y aumenta +20% las esmeraldas.",
+    name: "👑 Armadura de Netherita Encantada",
+    desc: "Equipa a Steve con armadura brillante y otorga +20% esmeraldas.",
     cost: 200,
     owned: false
   }
@@ -103,13 +176,13 @@ const LEVELS = [
       prompt: "Paso 1: Calcula la primera derivada f'(x) aplicando la regla de la potencia.",
       correct: "f'(x) = -2x + 4",
       wrong: ["f'(x) = -x + 4", "f'(x) = 2x - 4", "f'(x) = -2x² + 4"],
-      explain: "Derivamos término a término: la derivada de -x² es -2x, la de 4x es 4 y la de la constante 1 es 0."
+      explain: "Derivamos término a término: la derivada de -x² es -2x, la de 4x es 4 y la de 1 es 0."
     },
     q2: {
-      prompt: "Paso 2: Iguala f'(x) = 0 (-2x + 4 = 0). ¿En qué coordenada x está el punto crítico?",
+      prompt: "Paso 2: Iguala f'(x) = 0 (-2x + 4 = 0) o lleva a Steve a la cima. ¿En qué x está el punto crítico?",
       correct: "x = 2",
       wrong: ["x = -2", "x = 4", "x = 0"],
-      explain: "Despejamos: -2x + 4 = 0 ➔ -2x = -4 ➔ x = -4 / -2 = 2. ¡Mueve a Steve a x = 2!"
+      explain: "Despejamos: -2x + 4 = 0 ➔ -2x = -4 ➔ x = 2. ¡Camina con Steve a x = 2 y planta tu bandera!"
     },
     q3: {
       prompt: "Paso 3: Calcula f''(x). Como f''(x) = -2 (negativa), ¿qué tipo de punto es x = 2?",
@@ -119,7 +192,7 @@ const LEVELS = [
         "Punto de inflexión sin extremo",
         "Mínimo Local, porque x = 2 es positivo"
       ],
-      explain: "Por el criterio de la segunda derivada: si f''(x) < 0 la curva se abre hacia abajo (∩), formando una Cima (Máximo)."
+      explain: "Por el criterio de la segunda derivada: si f''(x) < 0 la curva se abre hacia abajo (∩), formando una Cima."
     }
   },
   {
@@ -151,7 +224,7 @@ const LEVELS = [
         "Máximo Local, porque f(3) es positivo",
         "No existe extremo local"
       ],
-      explain: "Cuando f''(x) > 0 la gráfica es cóncava hacia arriba (∪), lo que garantiza un Mínimo Local (Valle)."
+      explain: "Cuando f''(x) > 0 la gráfica es cóncava hacia arriba (∪), garantizando un Valle."
     }
   },
   {
@@ -183,7 +256,7 @@ const LEVELS = [
         "Mínimo Local porque x = 0",
         "Pendiente infinita"
       ],
-      explain: "Como f''(0) = -4 < 0, es un Máximo Local situado exactamente en (0, 8)."
+      explain: "Como f''(0) = -4 < 0, es un Máximo Local situado en (0, 8)."
     }
   },
   {
@@ -199,7 +272,7 @@ const LEVELS = [
       prompt: "Paso 1: Deriva la función f(x) = 0.5x² + 2x - 1.",
       correct: "f'(x) = x + 2",
       wrong: ["f'(x) = 0.5x + 2", "f'(x) = 2x + 2", "f'(x) = x - 1"],
-      explain: "2 por 0.5 es 1, quedando 1x + 2 = x + 2."
+      explain: "2 por 0.5 es 1, quedando x + 2."
     },
     q2: {
       prompt: "Paso 2: Iguala x + 2 = 0. ¿Cuál es la coordenada x crítica?",
@@ -311,7 +384,7 @@ const LEVELS = [
         "Dos Cimas simétricas",
         "Ninguno es extremo local"
       ],
-      explain: "En x = -2, f''(-2) = -2(-2) = +4 > 0 (Valle). En x = 2, f''(2) = -4 < 0 (Cima)."
+      explain: "En x = -2, f''(-2) = +4 > 0 (Valle). En x = 2, f''(2) = -4 < 0 (Cima)."
     }
   },
   {
@@ -333,7 +406,7 @@ const LEVELS = [
       prompt: "Paso 2: Factoriza x² - 2x - 3 = (x - 3)(x + 1) = 0. ¿Cuáles son las raíces?",
       correct: "x = -1 y x = 3",
       wrong: ["x = 1 y x = -3", "x = 0 y x = 3", "x = -2 y x = 3"],
-      explain: "Igualando cada factor a cero: x - 3 = 0 ➔ x = 3; x + 1 = 0 ➔ x = -1."
+      explain: "Igualando cada factor a cero: x = 3 y x = -1."
     },
     q3: {
       prompt: "Paso 3: Evalúa en f''(x) = 2x - 2 ambos puntos críticos:",
@@ -359,7 +432,7 @@ const LEVELS = [
       prompt: "Paso 1: Deriva la función f(x) = (1/3)x³ + x² - 3x.",
       correct: "f'(x) = x² + 2x - 3",
       wrong: ["f'(x) = x² - 2x - 3", "f'(x) = 3x² + 2x - 3", "f'(x) = x² + 2x"],
-      explain: "Baja el 3 multiplicando a 1/3 (queda x²), el 2x² pasa a 2x y -3x pasa a -3."
+      explain: "Baja el 3 multiplicando a 1/3 (queda x²), el x² pasa a 2x y -3x pasa a -3."
     },
     q2: {
       prompt: "Paso 2: Resuelve x² + 2x - 3 = (x + 3)(x - 1) = 0.",
@@ -401,7 +474,7 @@ const LEVELS = [
       prompt: "⚔️ JEFE FASE 2: Divide f'(x) = 0 entre 0.75 para obtener x² - 2x - 3 = 0. ¿Cuáles son sus puntos críticos?",
       correct: "x = -1 y x = 3",
       wrong: ["x = 1 y x = -3", "x = -2 y x = 2", "x = 0 y x = 3"],
-      explain: "Al dividir 0.75x² - 1.5x - 2.25 = 0 entre 0.75 queda x² - 2x - 3 = (x - 3)(x + 1) = 0 ➔ x = -1 y x = 3."
+      explain: "Al dividir entre 0.75 queda x² - 2x - 3 = (x - 3)(x + 1) = 0 ➔ x = -1 y x = 3."
     },
     q3: {
       prompt: "⚔️ JEFE FASE 3: Evalúa la segunda derivada f''(x) = 1.5x - 1.5 y derrota al Wither:",
@@ -411,7 +484,7 @@ const LEVELS = [
         "Cima en x = 3 con f''(3) = -3",
         "Punto de inflexión en x = -1 y x = 3"
       ],
-      explain: "¡Jefe derrotado! En x = -1 la concavidad es negativa (-3, Máximo) y en x = 3 es positiva (+3, Mínimo)."
+      explain: "¡Wither derrotado! En x = -1 la concavidad es negativa (-3, Máximo) y en x = 3 es positiva (+3, Mínimo)."
     }
   },
   {
@@ -489,7 +562,7 @@ const LEVELS = [
       prompt: "Paso 2: Factoriza x² - 4x + 3 = (x - 1)(x - 3) = 0:",
       correct: "x = 1 y x = 3",
       wrong: ["x = -1 y x = -3", "x = 1 y x = 4", "x = 0 y x = 3"],
-      explain: "Dos números que multiplicados dan +3 y sumados -4: -1 y -3 ➔ raíces x = 1 y x = 3."
+      explain: "Raíces en x = 1 y x = 3."
     },
     q3: {
       prompt: "Paso 3: Evalúa en f''(x) = 2x - 4:",
@@ -531,7 +604,7 @@ const LEVELS = [
         "Ambos son puntos de inflexión",
         "Ambos son Cimas"
       ],
-      explain: "f''(-3) = -6 + 4 = -2 < 0 (Cima); f''(-1) = -2 + 4 = +2 > 0 (Valle)."
+      explain: "f''(-3) = -2 < 0 (Cima); f''(-1) = +2 > 0 (Valle)."
     }
   },
   {
@@ -547,7 +620,7 @@ const LEVELS = [
       prompt: "Paso 1: Calcula la primera derivada de f(x) = 0.25x³ + 1.",
       correct: "f'(x) = 0.75x²",
       wrong: ["f'(x) = 0.25x²", "f'(x) = 0.75x² + 1", "f'(x) = 1.5x"],
-      explain: "3 por 0.25 es 0.75x². La derivada de 1 es 0."
+      explain: "3 por 0.25 es 0.75x²."
     },
     q2: {
       prompt: "Paso 2: Si 0.75x² = 0, ¿cuál es el único punto donde la pendiente vale 0?",
@@ -556,14 +629,10 @@ const LEVELS = [
       explain: "0.75x² = 0 solo se cumple en x = 0."
     },
     q3: {
-      prompt: "Paso 3: Observa la montaña en x = 0: f'(x) es positiva antes de 0 y sigue siendo positiva después de 0, y f''(0) = 0. ¿Qué es x = 0?",
+      prompt: "Paso 3: En x = 0 la pendiente f'(x) no cambia de signo y f''(0) = 0. ¿Qué es x = 0?",
       correct: "Punto de Inflexión (descanso horizontal, ni Máximo ni Mínimo)",
-      wrong: [
-        "Máximo Absoluto",
-        "Mínimo Absoluto",
-        "Asíntota vertical"
-      ],
-      explain: "¡Trampa clásica de examen! Si la pendiente f'(x) no cambia de signo al pasar por el punto crítico, es un Punto de Inflexión."
+      wrong: ["Máximo Absoluto", "Mínimo Absoluto", "Asíntota vertical"],
+      explain: "Si la pendiente no cambia de signo al cruzar f'(x)=0, es un Punto de Inflexión."
     }
   },
   {
@@ -595,7 +664,7 @@ const LEVELS = [
         "Tres Mínimos Locales",
         "Tres Máximos Locales"
       ],
-      explain: "En x = 0, f''(0) = -1.6 < 0 (Cima). En x = ±2, f''(±2) = 1.2(4) - 1.6 = +3.2 > 0 (Valles)."
+      explain: "En x = 0, f''(0) = -1.6 < 0 (Cima). En x = ±2, f''(±2) = +3.2 > 0 (Valles)."
     }
   },
   {
@@ -627,7 +696,7 @@ const LEVELS = [
         "Tres Cimas iguales",
         "No hay extremos locales"
       ],
-      explain: "En x = 0 da +1.6 > 0 (Valle central) y en x = ±2 da -3.2 < 0 (dos Cimas altas)."
+      explain: "En x = 0 da +1.6 > 0 (Valle central) y en x = ±2 da -3.2 < 0 (dos Cimas)."
     }
   },
   {
@@ -706,7 +775,7 @@ const LEVELS = [
     fn: (x) => 0.05 * Math.pow(x, 4) - 0.45 * x * x + 2.5,
     df: (x) => 0.2 * Math.pow(x, 3) - 0.9 * x,
     d2f: (x) => 0.6 * x * x - 0.9,
-    critX: [-3, 0, 3],
+    critX: [-2.1, 0, 2.1],
     q1: {
       prompt: "🐉 JEFE FINAL FASE 1: Deriva la función del Ender Dragon f(x) = 0.05x⁴ - 0.45x² + 2.5.",
       correct: "f'(x) = 0.2x³ - 0.9x",
@@ -718,7 +787,7 @@ const LEVELS = [
       explain: "Multiplicamos: 4(0.05)x³ = 0.2x³ y 2(-0.45)x = -0.9x."
     },
     q2: {
-      prompt: "🐉 JEFE FINAL FASE 2: Factoriza 0.1x(2x² - 9) = 0 o aproxima las raíces de 0.2x(x² - 4.5) = 0:",
+      prompt: "🐉 JEFE FINAL FASE 2: Factoriza 0.2x(x² - 4.5) = 0 para hallar los puntos críticos:",
       correct: "Tres puntos críticos: x = 0 y dos simétricos en x ≈ ±2.12 (raíz de 4.5)",
       wrong: [
         "Solo existe un punto crítico en x = 0",
